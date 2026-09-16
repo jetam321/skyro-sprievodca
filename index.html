@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skyro Sprievodca</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="topbar-grid">
+      <a class="brand" href="#" aria-label="Skyro">
+        <img class="brand-logo" src="skyro-logo.svg" alt="Skyro" onerror="this.hidden=true; this.nextElementSibling.hidden=false">
+        <div class="brand-mark" hidden>S</div>
+      </a>
+      <div class="brand-title">
+        <h1>Skyro Sprievodca</h1>
+        <small>Pravidlá, absencie a známky na jednom mieste</small>
+      </div>
+      <div class="clock"><div class="date" id="date"></div><div class="time" id="clock">--:--</div></div>
+      <nav class="tabs" role="tablist" id="tabs">
+        <button class="tab" role="tab" data-view="dnes" aria-selected="true">Dnes</button>
+        <button class="tab" role="tab" data-view="absencie" aria-selected="false">Absencie</button>
+        <button class="tab" role="tab" data-view="znamky" aria-selected="false">Percentá</button>
+        <button class="tab" role="tab" data-view="sprievodca" aria-selected="false">Sprievodca</button>
+        <button class="tab" role="tab" data-view="faq" aria-selected="false">FAQ</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== DNES ===== -->
+    <section class="view stack" id="view-dnes">
+      <div class="card lift">
+        <div class="eyebrow">Práve teraz</div>
+        <div class="now">
+          <div>
+            <div class="now-big" id="now-title">Načítavam…</div>
+            <p class="muted" id="now-sub"></p>
+          </div>
+          <div class="now-count" id="now-count"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Zvonenie</div>
+        <div class="bells" id="bells"></div>
+        <p class="src">Školský poriadok, čl. IV bod 6. Budova otvorená 7:00–18:00, príchod najneskôr 10 min pred vyučovaním.</p>
+      </div>
+    </section>
+
+    <!-- ===== ABSENCIE ===== -->
+    <section class="view stack" id="view-absencie" hidden>
+      <div class="card lift">
+        <div class="eyebrow">Školský rok</div>
+        <div class="now">
+          <div>
+            <div class="now-big" id="sy-title">–</div>
+            <p class="muted" id="sy-sub"></p>
+          </div>
+          <div class="now-count" id="sy-days"></div>
+        </div>
+        <div class="meter"><i id="sy-bar" style="width:0%"></i></div>
+        <div class="stat"><span id="sy-weeks"></span><span id="sy-end"></span></div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">Limit absencie</div>
+        <div class="row">
+          <div class="field"><label for="limit">Limit absencie (% z polroka)</label><input id="limit" type="number" min="1" max="100" value="30"></div>
+        </div>
+        <p class="muted">Nad 30 % vymeškaných hodín z predmetu za polrok môže byť nariadené komisionálne preskúšanie (čl. XII bod 7). Odučené hodiny sa rátajú automaticky podľa dátumu.</p>
+      </div>
+
+      <div id="subjects" class="stack"></div>
+      <div class="actions">
+        <button class="btn primary" id="add-subject">+ Pridať predmet</button>
+        <button class="btn ghost" id="reset-subjects">Vymazať všetko</button>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">Neospravedlnené hodiny a neskoré príchody</div>
+        <div class="row">
+          <div class="field"><label for="unex-month">Neospr. hodiny tento mesiac</label><input id="unex-month" type="number" min="0" value="0"></div>
+          <div class="field"><label for="unex-year">Neospr. hodiny tento školský rok</label><input id="unex-year" type="number" min="0" value="0"></div>
+          <div class="field"><label for="late">Neskoré príchody (do 15 min)</label><input id="late" type="number" min="0" value="0"></div>
+        </div>
+        <div id="unex-out" class="stack"></div>
+      </div>
+    </section>
+
+    <!-- ===== PERCENTÁ ===== -->
+    <section class="view stack" id="view-znamky" hidden>
+      <div class="card lift">
+        <div class="eyebrow">Celkový priemer</div>
+        <div class="verdict">
+          <div class="avg" id="avg">–</div>
+          <div><h2 id="verdict-title">Zadaj výsledky testov</h2><p class="muted" id="verdict-sub">Priemer zo všetkých predmetov, každý predmet má rovnakú váhu.</p></div>
+        </div>
+      </div>
+      <div id="grade-subjects" class="stack"></div>
+      <div class="actions">
+        <button class="btn primary" id="add-grade-subject">+ Pridať predmet</button>
+        <button class="btn ghost" id="reset-grades">Vymazať všetko</button>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Ako sa počíta</div>
+        <p class="muted">Priemer predmetu = súčet (percentá × váha) ÷ súčet váh. Bežný test má váhu 1, veľká písomka napr. 2. Celkový priemer je priemer priemerov predmetov.</p>
+        <p class="src">Hranice pre farby (zelená ≥ 75 %, oranžová ≥ 50 %) si upravíš v js/data.js.</p>
+      </div>
+    </section>
+
+    <!-- ===== SPRIEVODCA ===== -->
+    <section class="view" id="view-sprievodca" hidden>
+      <div id="guide"></div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="view stack" id="view-faq" hidden>
+      <div class="search"><input id="faq-search" type="search" placeholder="Hľadaj: mobil, ospravedlnenie, meškanie…" aria-label="Hľadať v otázkach"></div>
+      <div id="faq" class="stack"></div>
+    </section>
+  </main>
+
+  <footer>Neoficiálna študentská appka. Záväzný je vždy Školský poriadok Skyro (účinný od 1. 9. 2026).</footer>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
