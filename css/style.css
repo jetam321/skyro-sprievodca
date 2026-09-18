@@ -1,28 +1,25 @@
-/* =====================================================================
-   Skyro Sprievodca – vzhľad podľa Figma dizajnu
-   Fialový gradient, oranžové záložky, tmavofialové karty, biely text.
-   ===================================================================== */
+
 :root {
-  --bg-1: #4A12A8;          /* horný okraj gradientu */
-  --bg-2: #7A1FD6;          /* stred */
-  --bg-3: #9B2FE3;          /* spodok / pravá strana */
-  --card: rgba(38, 8, 92, .62);
-  --card-2: rgba(255, 255, 255, .08);
-  --line: rgba(255, 255, 255, .16);
-  --ink: #FFFFFF;
-  --ink-2: rgba(255, 255, 255, .82);
-  --muted: rgba(255, 255, 255, .58);
-  --accent: #F28C28;         /* oranžová */
-  --accent-ink: #2A0A5E;
-  --accent-soft: rgba(242, 140, 40, .22);
-  --ok: #4ADE80;  --ok-soft: rgba(74, 222, 128, .18);
-  --warn: #FBBF24; --warn-soft: rgba(251, 191, 36, .18);
-  --bad: #FB7185;  --bad-soft: rgba(251, 113, 133, .2);
-  --shadow: 0 10px 30px rgba(20, 0, 60, .35);
-  --radius: 16px;
-  --font-display: "Bangers", "Impact", "Arial Black", sans-serif;
-  --font-body: "Nunito", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", Consolas, monospace;
+    --bg-1: #4A12A8;          /* horný okraj gradientu */
+    --bg-2: #7A1FD6;          /* stred */
+    --bg-3: #9B2FE3;          /* spodok / pravá strana */
+    --card: rgba(38, 8, 92, .62);
+    --card-2: rgba(255, 255, 255, .08);
+    --line: rgba(255, 255, 255, .16);
+    --ink: #FFFFFF;
+    --ink-2: rgba(255, 255, 255, .82);
+    --muted: rgba(255, 255, 255, .58);
+    --accent: #F28C28;         /* oranžová */
+    --accent-ink: #2A0A5E;
+    --accent-soft: rgba(242, 140, 40, .22);
+    --ok: #4ADE80;  --ok-soft: rgba(74, 222, 128, .18);
+    --warn: #FBBF24; --warn-soft: rgba(251, 191, 36, .18);
+    --bad: #FB7185;  --bad-soft: rgba(251, 113, 133, .2);
+    --shadow: 0 10px 30px rgba(20, 0, 60, .35);
+    --radius: 16px;
+    --font-display: "Bangers", "Impact", "Arial Black", sans-serif;
+    --font-body: "Nunito", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", Consolas, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -213,5 +210,5 @@ footer { text-align: center; color: var(--muted); font-size: 12px; padding: 0 16
   .tabs { grid-column: 1 / 4; justify-content: flex-start; }
   .now-big { font-size: 1.7rem; }
 }
-}
+
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
